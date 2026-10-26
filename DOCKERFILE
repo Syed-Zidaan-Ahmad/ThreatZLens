@@ -1,0 +1,33 @@
+# Threat Z Lens (Docker Deployment Part)
+FROM python:3.11-slim
+# Prevent python from writing pyc files and enable unbuffered streaming logs
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PORT=8000
+# Install minimal OS dependencies needed for network health checks and build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+# Create dedicated non-root application user and group for defense-in-depth
+RUN groupadd -r threatlens && useradd -r -g threatlens -d /app -s /sbin/nologin threatlens
+WORKDIR /app
+# Copy requirements first to leverage Docker layer caching
+COPY backend/requirements.txt /app/backend/requirements.txt
+# Install dependencies cleanly without cache
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /app/backend/requirements.txt
+# Copy backend and frontend source directories
+COPY backend/ /app/backend/
+COPY frontend/ /app/frontend/
+# Ensure non-root ownership across the application directory
+RUN chown -R threatlens:threatlens /app
+# Switch to non-privileged user
+USER threatlens
+# Expose internal service port
+EXPOSE 8000
+# Container Healthcheck hitting the dedicated /api/health endpoint
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-8000}/api/health || exit 1
+# Production ASGI server execution (Dynamic $PORT binding via POSIX shell)
+CMD ["sh", "-c", "exec uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# End of Program (Program by Zidaan)

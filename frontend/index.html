@@ -1,0 +1,1953 @@
+<!-- Threat Z Lens (HTML Part) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Threat Z Lens | See the Threat Before It Strikes</title>
+  <meta name="description" content="Next-Gen Cyber Threat Intelligence Aggregator & Attack Chain Visualizer with VirusTotal v3, AlienVault OTX, Google Gemini 3.8 Flash, and Claude 3.7 Sonnet.">
+  <meta name="theme-color" content="#00f3ff">
+  <!-- PWA Manifest & High-res Cyber Icons (relative Paths for Vs Code Live Server & Fastapi) -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon192.png">
+  <link rel="apple-touch-icon" href="icon192.png">
+  <!-- Typography: Inter for UI & Jetbrains Mono for Cyber Telemetry -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Enhanced Cyberpunk Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+  <!-- Ambient Cyber Scanlines & Matrix Grid Overlay -->
+  <div class="cyber-scanlines" aria-hidden="true"></div>
+  <div class="cyber-grid-glow" aria-hidden="true"></div>
+  <!-- Site Header: Command Center Bar -->
+  <header class="site-header">
+    <div class="app-container header-content">
+      <a href="index.html" class="brand-wrapper" aria-label="Threat Z Lens Home">
+        <div class="brand-logo-container">
+          <svg class="brand-logo-svg" viewBox="0 0 100 100" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 14 L80 28 L76 64 L50 88 L24 64 L20 28 Z" fill="#101827" stroke="#00f3ff" stroke-width="4.5"/>
+            <circle cx="50" cy="48" r="20" stroke="#00f3ff" stroke-width="3" fill="rgba(0, 243, 255, 0.12)"/>
+            <line x1="26" y1="48" x2="74" y2="48" stroke="#00f3ff" stroke-width="2" stroke-dasharray="2 2"/>
+            <line x1="50" y1="24" x2="50" y2="72" stroke="#00f3ff" stroke-width="2" stroke-dasharray="2 2"/>
+            <circle cx="50" cy="48" r="7" fill="#c084fc"/>
+            <line x1="64" y1="62" x2="78" y2="76" stroke="#00f3ff" stroke-width="5.5" stroke-linecap="round"/>
+          </svg>
+          <span class="logo-pulse-ring"></span>
+        </div>
+        <div class="brand-text-container">
+          <span class="brand-title">Threat <span class="brand-z-highlight">Z</span> Lens</span>
+          <span class="brand-tagline-mini">See the Threat Before It Strikes</span>
+        </div>
+      </a>
+      <!-- Creator Watermark, Telemetry & Controls -->
+      <div class="header-status-group">
+        <!-- Creator Watermark / Copyright Badge -->
+        <div class="badge-zidaan-signature" title="Project by : ZIdaan">
+          Project by : <strong class="zidaan-author">ZIdaan</strong>
+        </div>
+        <div class="soc-clock mono" id="socClock" title="Click to toggle between Local Time (IST) and UTC Zulu Time">IST: 00:00:00</div>
+        <!-- Button to toggle cyber audio sound effects -->
+        <button id="btnSoundToggle" class="badge badge-cyber-audio" title="Toggle Cyber Audio SFX (Shortcut: M)" aria-label="Toggle Sound Effects">
+          <span id="soundIcon">🔊</span> <span id="soundLabel">SFX: ON</span>
+        </button>
+        <!-- Button to install Threat Z Lens desktop web app -->
+        <button id="btnInstallPwa" class="badge badge-cyber-install" title="Install Threat Z Lens as Desktop Web App" aria-label="Install Web App">
+          <span class="install-pwa-icon">📲</span>
+          <span class="cyan-neon">Install App</span>
+        </button>
+        <!-- Button to open AI engine and API keys modal -->
+        <button id="btnOpenApiModal" class="badge badge-api-engine" title="Configure AI Reasoning Model & BYOK API Keys">
+          <span class="api-glow-dot"></span>
+          <span class="cyan-neon">⚡ AI Engine & Keys</span>
+          <span id="headerModelBadge" class="badge-model-pill">claude-3-7-sonnet</span>
+        </button>
+        <!-- Button to open keyboard shortcuts modal -->
+        <button id="btnHelpModal" class="badge badge-help" title="Keyboard Shortcuts (Shortcut: ?)" aria-label="Keyboard Shortcuts">
+          <span>?</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="app-container">
+    <!-- Hero Section: Threat Matrix Hub -->
+    <section class="hero-section">
+      <div class="hero-radar-wrapper">
+        <div class="hero-shield-icon">
+          <svg viewBox="0 0 100 100" width="90" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 L84 26 L78 68 L50 92 L22 68 L16 26 Z" fill="#101827" stroke="#00f3ff" stroke-width="5"/>
+            <circle cx="50" cy="50" r="24" stroke="#00f3ff" stroke-width="3" fill="rgba(0, 243, 255, 0.1)"/>
+            <circle cx="50" cy="50" r="14" stroke="rgba(0, 243, 255, 0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <line x1="22" y1="50" x2="78" y2="50" stroke="#00f3ff" stroke-width="2"/>
+            <line x1="50" y1="22" x2="50" y2="78" stroke="#00f3ff" stroke-width="2"/>
+            <circle cx="50" cy="50" r="6" fill="#c084fc"/>
+            <line x1="68" y1="68" x2="84" y2="84" stroke="#00f3ff" stroke-width="6.5" stroke-linecap="round"/>
+          </svg>
+          <div class="radar-sweep-beam"></div>
+        </div>
+      </div>
+      <h1 class="hero-title">Threat Intelligence <span class="hero-tagline-glow">Aggregator</span></h1>
+      <p class="hero-subtitle">
+        Protect yourself and your organization from phishing traps, credential harvesters, malicious domains, weaponized CVE exploits, and stealthy C2 networks. The advanced AI aggregates live threat intelligence across global feeds to expose physical, digital, and financial red flags before damage occurs.
+        <span class="hero-install-notice">For the best experience, install Threat Z Lens using your browser's Install option on PC or "Add to Home Screen" on mobile.</span>
+      </p>
+      <!-- Active Analysis Pipeline Stages -->
+      <div class="pipeline-depth-card">
+        <div class="pipeline-step active">
+          <span class="step-number">1</span> IoC Extraction
+        </div>
+        <span class="pipeline-arrow">&rarr;</span>
+        <div class="pipeline-step active">
+          <span class="step-number">2</span> VirusTotal v3
+        </div>
+        <span class="pipeline-arrow">&rarr;</span>
+        <div class="pipeline-step active">
+          <span class="step-number">3</span> AlienVault OTX
+        </div>
+        <span class="pipeline-arrow">&rarr;</span>
+        <div class="pipeline-step active">
+          <span class="step-number">4</span> <span id="pipelineModelLabel">Claude 3.7 Sonnet (Hybrid Reasoning)</span>
+        </div>
+        <span class="pipeline-arrow">&rarr;</span>
+        <div class="pipeline-step active">
+          <span class="step-number">5</span> MITRE & Rules
+        </div>
+      </div>
+    </section>
+    <!-- BYOK & Ai Reasoning Engine Dynamic Strip -->
+    <div class="byok-status-strip" id="byokStrip">
+      <div class="byok-strip-left">
+        <span class="byok-pill-badge">AI REASONING ACTIVE</span>
+        <span class="byok-strip-text">
+          Engine: <strong id="stripModelLabel" class="purple-neon">Claude 3.7 Sonnet (Hybrid Reasoning)</strong>
+          &bull; <span id="stripKeyStatus" class="cyan-neon">Keys: Server / Demo Fallback</span>
+        </span>
+      </div>
+      <div class="byok-strip-right">
+        <!-- Button to configure AI models and BYOK API keys -->
+        <button id="btnStripConfigure" class="btn-micro-cyber" title="Select Model or Enter BYOK Keys">
+          ⚡ Model & Keys Configuration &darr;
+        </button>
+      </div>
+    </div>
+    <!-- Workspace Input Card with Real-time Detection -->
+    <section class="workspace-card" id="scanInputCard">
+      <div class="workspace-card-header">
+        <div class="input-tabs" role="tablist">
+          <!-- Button to switch to paste text or email tab -->
+          <button class="tab-btn active" id="tabPaste" role="tab" aria-selected="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+            Paste Text / Email
+          </button>
+          <!-- Button to switch to upload security file tab -->
+          <button class="tab-btn" id="tabUpload" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Log / EML
+          </button>
+          <!-- Button to switch to structured IoC list tab -->
+          <button class="tab-btn" id="tabIocList" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            IoC List
+          </button>
+        </div>
+        <!-- Quick Mutator Actions: Defang / Refang & Clear -->
+        <div class="quick-tools-row">
+          <!-- Button to defang malicious URLs and IP addresses in input -->
+          <button id="btnQuickDefang" class="btn-micro" title="Convert URLs & IPs to safe defanged format (hxxp, [.], [@])">
+            🛡️ Defang Text
+          </button>
+          <!-- Button to refang threat indicators back to live format -->
+          <button id="btnQuickRefang" class="btn-micro" title="Normalize defanged text back to live format">
+            ⚡ Refang Text
+          </button>
+          <!-- Button to clear threat input textarea -->
+          <button id="btnClearInput" class="btn-micro" title="Clear input text">
+            ✕ Clear
+          </button>
+        </div>
+      </div>
+      <!-- Real-time IoC Live Stream Pill Bar (shows Dynamically as User Types!) -->
+      <div class="live-detection-bar" id="liveDetectionBar">
+        <span class="live-indicator-dot"></span>
+        <span class="live-label">Live Indicator Stream:</span>
+        <div class="live-pills-list" id="livePillsList">
+          <span class="pill-mini pill-idle">Paste text or click a sample to detect IoCs in real time</span>
+        </div>
+      </div>
+      <!-- Paste Text Tab Content -->
+      <div id="pasteContainer" class="text-input-wrapper">
+        <textarea id="threatInput" class="threat-textarea" placeholder="Paste suspected phishing email, raw security incident log, headers, or defanged IoCs (e.g., hxxps://secure-paypal-login[.]verify-account-security[.]top/auth/login.php, 198.51.100.42, CVE-2023-38831)..." spellcheck="false"></textarea>
+        <div class="textarea-footer">
+          <span id="charCount">0 characters | 0 lines</span>
+          <span>Shortcut: <kbd>Ctrl+Enter</kbd> to Scan</span>
+        </div>
+      </div>
+      <!-- Upload Dropzone Content -->
+      <div id="uploadContainer">
+        <div class="dropzone-container" id="dropZone">
+          <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/>
+          </svg>
+          <p><strong>Drag & Drop security file here</strong> or click to browse</p>
+          <p class="text-dim dropzone-formats-note">Supported formats: .txt, .eml, .log, .csv (Max 2 MB)</p>
+          <input type="file" id="fileInput" accept=".txt,.eml,.log,.csv">
+        </div>
+        <div class="file-preview-card" id="fileCard">
+          <div class="file-preview-info">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="#00f3ff"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div>
+              <div id="fileName">document.eml</div>
+              <div id="fileSize">0 KB</div>
+            </div>
+          </div>
+          <!-- Button to remove uploaded security file -->
+          <button id="btnRemoveFile" class="btn-sample">Remove</button>
+        </div>
+      </div>
+      <!-- Action Controls & One-click Samples -->
+      <div class="controls-row">
+        <div class="sample-buttons-group">
+          <span class="sample-label">1-Click Scenarios:</span>
+          <!-- Button to load defanged PayPal phishing lure sample -->
+          <button id="btnSamplePhish" class="btn-sample" title="Defanged PayPal phishing lure with CVE-2023-38831 and private gateway">
+            🎯 Phishing Lure (Defanged)
+          </button>
+          <!-- Button to load mixed threat telemetry sample -->
+          <button id="btnSampleMixed" class="btn-sample" title="Harmless EICAR test hash, Tor exit node IP, and clean GitHub domain">
+            🧪 Mixed IoCs (EICAR Hash)
+          </button>
+          <!-- Button to load clean corporate infrastructure sample -->
+          <button id="btnSampleClean" class="btn-sample btn-sample-clean" title="Verified legitimate IBM, SkillsBuild & Cloudflare corporate traffic (Clean 0/100 score)">
+            🛡️ Safe Enterprise Traffic (Clean 0/100)
+          </button>
+        </div>
+        <div class="primary-actions-group">
+          <!-- Button to run offline simulated demo scan -->
+          <button id="btnTryDemo" class="btn-demo" title="Run simulated offline demo without live API keys">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Try Demo Mode
+          </button>
+          <!-- Button to execute threat intelligence scan -->
+          <button id="btnScan" class="btn-primary" title="Execute full threat intelligence aggregation">
+            <svg id="scanIconSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span id="scanBtnText">Scan Threats</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Progress Stepper & Skeleton -->
+    <section class="scan-progress-container" id="scanProgressCard">
+      <div class="progress-header">
+        <div class="flex-row-gap-12">
+          <span class="spinner"></span>
+          <h3 id="progressStageTitle">Analyzing Threat Indicators...</h3>
+        </div>
+        <span class="mono" id="progressPercentage">25%</span>
+      </div>
+      <div class="scan-stepper">
+        <div class="step-card" id="stepCard1">
+          <div class="step-icon-state">1</div>
+          <div><strong>1. Extract & Refang</strong><br><span class="step-subtext">Deduplicate & SSRF Filter</span></div>
+        </div>
+        <div class="step-card" id="stepCard2">
+          <div class="step-icon-state">2</div>
+          <div><strong>2. VirusTotal v3</strong><br><span class="step-subtext">70+ AV Engine Scans</span></div>
+        </div>
+        <div class="step-card" id="stepCard3">
+          <div class="step-icon-state">3</div>
+          <div><strong>3. AlienVault OTX</strong><br><span class="step-subtext">Threat Pulses & Tags</span></div>
+        </div>
+        <div class="step-card" id="stepCard4">
+          <div class="step-icon-state">4</div>
+          <div><strong>4. Gemini AI</strong><br><span class="step-subtext">Synthesis & Actions</span></div>
+        </div>
+      </div>
+      <div class="skeleton-line w-full"></div>
+      <div class="skeleton-line w-85"></div>
+      <div class="skeleton-line w-65"></div>
+    </section>
+    <!-- Scan Results Dashboard -->
+    <section class="results-dashboard" id="resultsDashboard">
+      <!-- Top Action Toolbar: Report Navigation & Exports -->
+      <div class="results-toolbar">
+        <div class="results-tab-group">
+          <!-- Button to switch to dashboard overview tab -->
+          <button class="res-tab-btn active" id="tabOverview">Dashboard Overview</button>
+          <!-- Button to switch to interactive threat graph tab -->
+          <button class="res-tab-btn" id="tabGraph">Interactive Threat Graph</button>
+          <!-- Button to switch to MITRE ATT&CK matrix tab -->
+          <button class="res-tab-btn" id="tabMitre">MITRE ATT&CK Matrix</button>
+          <!-- Button to switch to SOC defense rules tab -->
+          <button class="res-tab-btn" id="tabFirewall">SOC Defense Rules</button>
+        </div>
+        <div class="export-bar">
+          <!-- Button to export executive threat report as PDF -->
+          <button id="btnExportPdf" class="btn-export" title="Export executive report as PDF">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Export PDF
+          </button>
+          <!-- Button to export structured threat telemetry as JSON -->
+          <button id="btnExportJson" class="btn-export" title="Download structured JSON report">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
+            Export JSON
+          </button>
+          <!-- Button to export indicators of compromise as CSV -->
+          <button id="btnExportCsv" class="btn-export" title="Export spreadsheet of IoCs and scores">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Export CSV
+          </button>
+        </div>
+      </div>
+      <div id="printableReport">
+        <!-- Trust/threat Executive Banner -->
+        <div class="threat-banner">
+          <div class="banner-left">
+            <div class="banner-verdict-row">
+              <span id="overallVerdictTag" class="verdict-tag verdict-malicious">MALICIOUS</span>
+              <h2 id="overallVerdictHeader">High Threat Level Detected</h2>
+            </div>
+            <div class="banner-meta-row">
+              <span class="banner-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="scanTimestampText">Just now</span>
+              </span>
+              <span class="banner-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span id="iocCountBreakdown">4 Indicators Scanned</span>
+              </span>
+              <span class="banner-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Sources: VirusTotal v3, AlienVault OTX, Multi-Provider AI</span>
+              </span>
+            </div>
+          </div>
+          <div class="banner-score-box">
+            <div class="score-ring-wrap">
+              <div id="overallScoreNumber" class="score-number cyan-text">88</div>
+            </div>
+            <div class="score-caption">Combined Risk Score</div>
+          </div>
+        </div>
+        <!-- Risk Timeline Bar -->
+        <div class="risk-timeline-card">
+          <div class="risk-timeline-header">
+            <span>Deterministic Risk Continuum</span>
+            <span id="timelinePointerText" class="cyan-text mono">Score: 88/100</span>
+          </div>
+          <div class="timeline-track">
+            <div id="timelinePointer" class="timeline-indicator"></div>
+          </div>
+          <div class="timeline-labels">
+            <span>Clean (0-14)</span>
+            <span>Low (15-29)</span>
+            <span>Suspicious (30-49)</span>
+            <span>High (50-79)</span>
+            <span>Critical (80-100)</span>
+          </div>
+        </div>
+        <!-- View 1: Main Dashboard Overview -->
+        <div id="viewOverview" class="result-view-panel active">
+          <!-- Visual Gauges & Pure Css/svg Charts Grid -->
+          <div class="metrics-visual-grid">
+            <!-- Gauge 1: Risk -->
+            <div class="gauge-card">
+              <div id="gaugeRisk" class="conic-gauge">
+                <div class="conic-gauge-inner"><span id="gaugeRiskVal">88</span></div>
+              </div>
+              <div class="gauge-title">Risk Score</div>
+            </div>
+            <!-- Gauge 2: Malicious Ratio -->
+            <div class="gauge-card">
+              <div id="gaugeMalicious" class="conic-gauge">
+                <div class="conic-gauge-inner"><span id="gaugeMaliciousVal">75%</span></div>
+              </div>
+              <div class="gauge-title">Malicious Ratio</div>
+            </div>
+            <!-- Gauge 3: Confidence -->
+            <div class="gauge-card">
+              <div id="gaugeConf" class="conic-gauge">
+                <div class="conic-gauge-inner"><span id="gaugeConfVal">95%</span></div>
+              </div>
+              <div class="gauge-title">Evidence Confidence</div>
+            </div>
+            <!-- Chart 1: Pure SVG Interactive Donut of IoC Types -->
+            <div class="chart-card">
+              <div class="gauge-title">IoC Category Breakdown</div>
+              <div class="donut-chart-container" id="donutContainer">
+                <svg id="iocDonutSvg" class="donut-svg" viewBox="0 0 120 120"></svg>
+                <div class="donut-center-info" id="donutCenterInfo">
+                  <span id="donutCenterCount" class="mono">0</span>
+                  <span class="donut-center-label">TOTAL</span>
+                </div>
+              </div>
+              <div id="donutLegend" class="donut-legend-wrap"></div>
+            </div>
+            <!-- Chart 2: Verdict Distribution Bars -->
+            <div class="chart-card">
+              <div class="gauge-title">Verdict Distribution</div>
+              <div id="chartVerdictBars" class="chart-content"></div>
+            </div>
+          </div>
+          <!-- Ai Analyst Synthesis Card (multi-provider Ai Engine) -->
+          <div class="ai-analyst-card">
+            <div class="ai-header-row">
+              <div class="ai-title-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 0 1-3 0V7a1.5 1.5 0 0 1 3 0v4.5z"/></svg>
+                <h3>AI Threat Analyst Synthesis</h3>
+              </div>
+              <div class="ai-badge" id="aiModelBadge">claude-3-7-sonnet</div>
+            </div>
+            <div id="aiVerdictLead" class="ai-verdict-lead">
+              High-Confidence Phishing and Credential Theft Campaign imitating financial security notifications.
+            </div>
+            <div class="ai-danger-box">
+              <strong class="threat-exposure-label">Threat Mechanics & Exposure: </strong>
+              <span id="aiWhyDangerousText">The input contains a deceptive PayPal authentication lure designed to intercept user login credentials.</span>
+            </div>
+            <div>
+              <div class="playbook-heading">Actionable Mitigation Checklist</div>
+              <div id="aiActionsList" class="ai-actions-list"></div>
+            </div>
+          </div>
+          <!-- IoC Intelligence Table -->
+          <div class="ioc-section-card">
+            <div class="table-toolbar">
+              <div class="filter-pills-row" id="typeFilterPills">
+                <!-- Button to filter indicators by all types -->
+                <button class="filter-pill active" data-type="all">All Types</button>
+                <!-- Button to filter indicators by URLs only -->
+                <button class="filter-pill" data-type="url">URLs</button>
+                <!-- Button to filter indicators by domains only -->
+                <button class="filter-pill" data-type="domain">Domains</button>
+                <!-- Button to filter indicators by IPv4 addresses only -->
+                <button class="filter-pill" data-type="ipv4">IPv4</button>
+                <!-- Button to filter indicators by file hashes only -->
+                <button class="filter-pill" data-type="hash">Hashes</button>
+                <!-- Button to filter indicators by CVE vulnerabilities only -->
+                <button class="filter-pill" data-type="cve">CVEs</button>
+                <!-- Button to filter indicators by email addresses only -->
+                <button class="filter-pill" data-type="email">Emails</button>
+              </div>
+              <div class="search-input-wrap">
+                <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="iocSearchInput" class="search-input" placeholder="Search indicators (press /)..." aria-label="Search indicators">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="threat-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Indicator Value</th>
+                    <th>Risk Score</th>
+                    <th>Verdict</th>
+                    <th>VirusTotal Engines</th>
+                    <th>OTX Pulses</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="iocTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- View 2: Interactive Threat Graph / Attack Chain -->
+        <div id="viewGraph" class="result-view-panel">
+          <div class="graph-section-card">
+            <div class="graph-header-bar">
+              <div>
+                <h3 class="section-heading-flex">
+                  <span class="cyan-neon">⚡</span> Attack Chain & Indicator Relationship Graph
+                </h3>
+                <p class="section-subtitle-dim">
+                  Interactive force-directed node graph showing relationships between Target Assets, Lures, Infrastructure, CVEs, and Hashes. Drag nodes to reposition.
+                </p>
+              </div>
+              <div class="graph-controls">
+                <!-- Button to reset threat graph camera and zoom view -->
+                <button id="btnResetGraph" class="btn-micro">Reset View</button>
+                <span class="graph-legend-dot dot-green"> Clean</span>
+                <span class="graph-legend-dot dot-yellow"> Suspicious</span>
+                <span class="graph-legend-dot dot-red"> Malicious</span>
+              </div>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="threatGraphCanvas" width="1180" height="520"></canvas>
+              <div id="graphTooltip" class="graph-tooltip"></div>
+            </div>
+          </div>
+        </div>
+        <!-- View 3: MITRE Att&ck Matrix Mapping -->
+        <div id="viewMitre" class="result-view-panel">
+          <div class="mitre-section-card">
+            <div class="mitre-header">
+              <div>
+                <h3>MITRE ATT&CK Enterprise Matrix Mapping</h3>
+                <p class="section-subtitle-dim">
+                  TTPs aligned with the industry standard MITRE ATT&CK framework for automated adversary emulation and SOC incident ticketing.
+                </p>
+              </div>
+              <span class="badge badge-privacy">Enterprise Framework v15</span>
+            </div>
+            <div class="mitre-tactics-grid" id="mitreTacticsGrid">
+              <!-- Dynamically Rendered MITRE Cards -->
+            </div>
+          </div>
+        </div>
+        <!-- View 4: SOC Defense Rules & Firewall Generator -->
+        <div id="viewFirewall" class="result-view-panel">
+          <div class="firewall-section-card">
+            <div class="firewall-header">
+              <div>
+                <h3>SOC Defense Rules Generator</h3>
+                <p class="section-subtitle-dim">
+                  Instant copy-pasteable firewall blocking rules, ACLs, and sinkhole entries generated specifically for the malicious indicators in this scan.
+                </p>
+              </div>
+              <!-- Button to copy active firewall containment rules -->
+              <button id="btnCopyAllRules" class="btn-primary">
+                📋 Copy Active Rules
+              </button>
+            </div>
+            <div class="firewall-tabs" id="firewallTabs">
+              <!-- Button to switch to Linux iptables rules tab -->
+              <button class="fw-tab-btn active" data-fw="iptables">Linux iptables</button>
+              <!-- Button to switch to Cisco ASA ACL rules tab -->
+              <button class="fw-tab-btn" data-fw="cisco">Cisco ASA ACL</button>
+              <!-- Button to switch to AWS WAF rules tab -->
+              <button class="fw-tab-btn" data-fw="aws">AWS WAF / VPC</button>
+              <!-- Button to switch to Windows Defender PowerShell rules tab -->
+              <button class="fw-tab-btn" data-fw="powershell">Windows Defender (PowerShell)</button>
+              <!-- Button to switch to DNS sinkhole rules tab -->
+              <button class="fw-tab-btn" data-fw="sinkhole">DNS Sinkhole (RPZ/Hosts)</button>
+              <!-- Button to switch to Sigma and YARA rules tab -->
+              <button class="fw-tab-btn" data-fw="sigma">Sigma & YARA Rule</button>
+            </div>
+            <div class="code-block-container">
+              <pre class="code-pre mono"><code id="firewallCodeBlock"># Generating firewall rules...</code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Interactive Ai Threat Chat Box -->
+      <div class="chat-section-card">
+        <div class="chat-card-header">
+          <div class="flex-row-gap-8">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <h3>Threat <span class="brand-z-highlight">Z</span> Lens AI Analyst Chat</h3>
+          </div>
+          <div class="flex-row-gap-10">
+            <!-- Button to draft SOC incident notification ticket -->
+            <button id="btnGenerateTicket" class="btn-micro" title="Draft an incident notification ticket">
+              🎫 Draft SOC Ticket
+            </button>
+            <span class="chat-grounded-note">Grounded in active threat telemetry</span>
+          </div>
+        </div>
+        <div class="chat-box-container">
+          <div class="chat-messages-scroll" id="chatMessages">
+            <div class="chat-bubble chat-bubble-ai">
+              Hello! I am your Threat Z Lens AI Security Analyst. I have evaluated all indicators from the active scan. You can ask me how to configure edge drop policies, trace the threat actor's initial access vector, or draft an incident response briefing.
+            </div>
+          </div>
+          <div class="quick-prompts-row">
+            <span class="quick-queries-label">Quick Queries:</span>
+            <!-- Button to query firewall block rules -->
+            <button class="quick-chip" data-query="How do I block these malicious indicators on our perimeter firewall?">Firewall Block Rules</button>
+            <!-- Button to query CVE impact analysis -->
+            <button class="quick-chip" data-query="What is the potential impact of CVE-2023-38831 if exploited on an endpoint?">CVE Impact Analysis</button>
+            <!-- Button to query draft SOC alert -->
+            <button class="quick-chip" data-query="Draft a concise incident notification email for the SOC and security engineering team.">Draft SOC Alert</button>
+            <!-- Button to query executive attack chain summary -->
+            <button class="quick-chip" data-query="Explain the step-by-step attack chain of this campaign for non-technical leadership.">Executive Summary</button>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask follow-up questions about this threat report..." aria-label="Ask follow-up question">
+            <!-- Button to send message to AI threat analyst -->
+            <button id="btnChatSend" class="btn-chat-send">Send</button>
+          </div>
+        </div>
+      </div>
+      <!-- Skipped & Ignored Indicators Panel -->
+      <div class="secondary-section-card" id="skippedCard">
+        <!-- Button to toggle skipped private indicators drawer -->
+        <button class="accordion-toggle" id="btnToggleSkipped" aria-expanded="false">
+          <span class="flex-inline-gap-8">
+            <span class="icon-suspicious-color">🛡️</span> 
+            Skipped Indicators & Private Subnets (<span id="skippedCountText">0</span>)
+          </span>
+          <span id="skippedChevron">&darr;</span>
+        </button>
+        <div class="accordion-body" id="skippedBody">
+          <p class="skipped-desc">
+            In compliance with strict SSRF defense policies, RFC 1918 private subnets, loopbacks, link-local addresses, and safe domains are excluded from external queries to prevent internal network reconnaissance.
+          </p>
+          <ul id="skippedList"></ul>
+        </div>
+      </div>
+      <!-- Scan History Panel -->
+      <div class="secondary-section-card">
+        <div class="flex-between-center">
+          <!-- Button to toggle local browser scan history drawer -->
+          <button class="accordion-toggle" id="btnToggleHistory" aria-expanded="false">
+            <span class="flex-inline-gap-8">
+              <span class="cyan-neon">🕒</span> Local Scan History (Encrypted Browser Storage)
+            </span>
+            <span id="historyChevron">&darr;</span>
+          </button>
+          <!-- Button to clear stored browser scan history -->
+          <button id="btnClearHistory" class="btn-sample">Clear History</button>
+        </div>
+        <div class="accordion-body" id="historyBody">
+          <p class="history-note-text">
+            History is stored strictly in your browser profile. No uploaded documents or private API keys are ever retained or transmitted.
+          </p>
+          <div id="historyList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Ai Engine & BYOK API Keys Modal Overlay -->
+  <div class="cyber-modal-overlay" id="apiSettingsModal" aria-hidden="true">
+    <div class="cyber-modal-card api-modal-card">
+      <div class="modal-header">
+        <div class="flex-row-gap-12">
+          <span class="modal-header-icon">⚡</span>
+          <div>
+            <h3 class="cyan-neon api-modal-title">AI Models & API Keys</h3>
+            <p class="api-modal-subtitle">
+              Choose your threat analysis model, or plug in your own API keys for VirusTotal, AlienVault, and frontier LLMs.
+            </p>
+          </div>
+        </div>
+        <!-- Button to close AI models and API keys modal -->
+        <button id="btnCloseApiModal" class="btn-close-modal" aria-label="Close API Settings">&times;</button>
+      </div>
+      <!-- Modal Sub-navigation Bar with Quick Jump to BYOK Keys -->
+      <div class="modal-subnav-bar">
+        <div class="flex-row-gap-8">
+          <span class="badge-mini badge-purple-neon">48 Models Available (6 per page)</span>
+        </div>
+        <!-- Button to jump to Bring Your Own Key section -->
+        <button type="button" id="btnScrollToKeys" class="btn-micro-cyber" title="Scroll directly down to enter your own API Keys">
+          🔑 Jump to Bring Your Own Key &darr;
+        </button>
+      </div>
+      <div class="modal-body api-modal-body">
+        <!-- Section 1: Ai Reasoning Models Gallery -->
+        <div class="api-modal-section" id="modelsGallerySection">
+          <!-- Model Search Toolbar with Unified Filter Chips -->
+          <div class="model-search-toolbar">
+            <div class="model-search-box-wrapper">
+              <div class="model-search-input-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="modelSearchInput" class="cyber-input" placeholder="Search by model or provider (e.g. Claude 3.7, GPT-4o, DeepSeek, Llama)..." autocomplete="off">
+                <!-- Button to clear model catalog search input -->
+                <button type="button" id="btnClearModelSearch" class="btn-clear-search" title="Clear Search">&times;</button>
+              </div>
+              <!-- Live Autocomplete Suggestions Dropdown -->
+              <div class="model-search-suggestions" id="modelSearchSuggestions">
+                <!-- Dynamically Filled with Interactive Matching Model Suggestions -->
+              </div>
+            </div>
+            <!-- Single Unified Provider & Capability Filter Bar -->
+            <div class="model-category-chips" id="modelCategoryChips">
+              <!-- Button to filter model catalog by all providers -->
+              <button type="button" class="chip-filter active" data-filter="all">All (48)</button>
+              <!-- Button to filter model catalog by free tier and Groq models -->
+              <button type="button" class="chip-filter" data-filter="free">🎁 Free Tier / Groq</button>
+              <!-- Button to filter model catalog by trending models -->
+              <button type="button" class="chip-filter" data-filter="trending">🔥 Trending</button>
+              <!-- Button to filter model catalog by Google Gemini models -->
+              <button type="button" class="chip-filter" data-filter="gemini">🔷 Gemini</button>
+              <!-- Button to filter model catalog by OpenAI models -->
+              <button type="button" class="chip-filter" data-filter="openai">⚡ OpenAI</button>
+              <!-- Button to filter model catalog by Anthropic Claude models -->
+              <button type="button" class="chip-filter" data-filter="claude">🟣 Claude</button>
+              <!-- Button to filter model catalog by IBM models -->
+              <button type="button" class="chip-filter" data-filter="ibm">🔵 IBM</button>
+              <!-- Button to filter model catalog by DeepSeek models -->
+              <button type="button" class="chip-filter" data-filter="deepseek">🐋 DeepSeek</button>
+              <!-- Button to filter model catalog by xAI Grok models -->
+              <button type="button" class="chip-filter" data-filter="grok">🚀 Grok</button>
+              <!-- Button to filter model catalog by NVIDIA models -->
+              <button type="button" class="chip-filter" data-filter="nvidia">💚 NVIDIA</button>
+              <!-- Button to filter model catalog by Mistral models -->
+              <button type="button" class="chip-filter" data-filter="mistral">🧡 Mistral</button>
+              <!-- Button to filter model catalog by Perplexity models -->
+              <button type="button" class="chip-filter" data-filter="perplexity">🌐 Perplexity</button>
+              <!-- Button to filter model catalog by Cohere models -->
+              <button type="button" class="chip-filter" data-filter="cohere">🌿 Cohere</button>
+              <!-- Button to filter model catalog by Meta Llama models -->
+              <button type="button" class="chip-filter" data-filter="meta">🦙 Meta</button>
+              <!-- Button to filter model catalog by Alibaba Qwen models -->
+              <button type="button" class="chip-filter" data-filter="qwen">🌌 Qwen</button>
+              <!-- Button to filter model catalog by advanced reasoning models -->
+              <button type="button" class="chip-filter" data-filter="reasoning">🧠 Reasoning</button>
+            </div>
+          </div>
+          <!-- Empty Search Match Fallback Banner -->
+          <div id="noModelMatchBox" class="no-model-match-box">
+            <span>No preset card matches "<strong id="noMatchQuery"></strong>".</span>
+            <!-- Button to use search query as custom model ID -->
+            <button type="button" id="btnUseSearchAsCustomModel" class="btn-micro-cyber">Use as custom model ID &rarr;</button>
+          </div>
+          <!-- Model Cards Grid (spacious 3x2 Grid, 6 Models Per Page) -->
+          <div class="model-cards-grid" id="modelCardsGrid">
+            <!-- 1. gemini-3.8-flash -->
+            <div class="model-card" data-model="gemini-3.8-flash" data-categories="all free gemini speed trending frontier" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.8 Flash</div>
+                    <div class="model-provider-tag">GOOGLE &bull; 2026 FLAGSHIP SPEED</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's newest lightning-fast flagship. Instantly checks links, IP addresses, and emails with zero cost using your personal Google account.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Instant Verdicts</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Clear Summaries</span>
+              </div>
+            </div>
+            <!-- 2. claude-3-7-sonnet -->
+            <div class="model-card active" data-model="claude-3-7-sonnet" data-categories="all claude reasoning trending frontier" data-provider-name="Anthropic Claude" data-key-url="https://console.anthropic.com/settings/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🟣</span>
+                  <div>
+                    <div class="model-name">Claude 3.7 Sonnet</div>
+                    <div class="model-provider-tag">ANTHROPIC &bull; 2026 SMART INVESTIGATOR</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Model Selected">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Anthropic's latest hybrid reasoning model. Carefully inspects deceptive emails, fake links, and hidden traps to tell you exactly how a scam works.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Deep Scam Analysis</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Phishing Protection</span>
+              </div>
+            </div>
+            <!-- 3. gpt-4o -->
+            <div class="model-card" data-model="gpt-4o" data-categories="all openai speed trending frontier" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI GPT-4o</div>
+                    <div class="model-provider-tag">OPENAI &bull; FLAGSHIP OMNI</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                OpenAI's top all-around model that millions know from ChatGPT. Breaks down threats in seconds and gives straightforward safety advice.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Fast Analysis</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Actionable Fixes</span>
+              </div>
+            </div>
+            <!-- 4. ibm/bob -->
+            <div class="model-card" data-model="ibm/bob" data-categories="all ibm reasoning trending frontier" data-provider-name="IBM Cloud / watsonx" data-key-url="https://cloud.ibm.com/iam/apikeys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🔵</span>
+                  <div>
+                    <div class="model-name">IBM Bob</div>
+                    <div class="model-provider-tag">IBM &bull; ENTERPRISE SECURITY AGENT</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                IBM's enterprise AI security and coding agent. Expert in automated vulnerability scanning, secret detection, and strict compliance enforcement.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Shift-Left Security</span>
+                <span class="meta-pill"><span class="meta-icon">🔒</span> Compliance & Secrets</span>
+              </div>
+            </div>
+            <!-- 5. groq/llama-3.3-70b-versatile -->
+            <div class="model-card" data-model="groq/llama-3.3-70b-versatile" data-categories="all free reasoning speed trending" data-provider-name="Groq Free Cloud" data-key-url="https://console.groq.com/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">⚡</span>
+                  <div>
+                    <div class="model-name">Groq Llama 3.3 70B</div>
+                    <div class="model-provider-tag">GROQ &bull; 100% FREE CLOUD</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Ultra-fast open model hosted on Groq's free cloud. Instant responses with no credit card required, perfect for the general public.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Free Fast LPU</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Firewall Rules</span>
+              </div>
+            </div>
+            <!-- 6. deepseek-r1 -->
+            <div class="model-card" data-model="deepseek-r1" data-categories="all free deepseek reasoning trending" data-provider-name="DeepSeek Platform" data-key-url="https://platform.deepseek.com/api_keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-deepseek">🐋</span>
+                  <div>
+                    <div class="model-name">DeepSeek R1</div>
+                    <div class="model-provider-tag">DEEPSEEK &bull; STEP-BY-STEP LOGIC</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                DeepSeek's viral reasoning model. Takes time to think things through step-by-step, making it great for finding tricky hidden threats at ultra-low cost.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Step-by-Step Logic</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Budget Friendly</span>
+              </div>
+            </div>
+            <!-- 7. gemini-3.8-live-extended-thinking -->
+            <div class="model-card" data-model="gemini-3.8-live-extended-thinking" data-categories="all gemini reasoning frontier" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.8 Extended Thinking</div>
+                    <div class="model-provider-tag">GOOGLE &bull; 2026 DEEP THINKER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's deep-thinking model. Connects scattered clues from a complex attack to show you the whole picture from start to finish.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Deep Investigation</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Complex Chains</span>
+              </div>
+            </div>
+            <!-- 8. claude-3-5-sonnet -->
+            <div class="model-card" data-model="claude-3-5-sonnet" data-categories="all claude reasoning frontier" data-provider-name="Anthropic Claude" data-key-url="https://console.anthropic.com/settings/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🟣</span>
+                  <div>
+                    <div class="model-name">Claude 3.5 Sonnet</div>
+                    <div class="model-provider-tag">ANTHROPIC &bull; ACCURATE ANALYST</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                A favorite among security researchers. Excellent at figuring out who is behind an attack and mapping out what attackers are trying to achieve.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Forensic Accuracy</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Attack Mapping</span>
+              </div>
+            </div>
+            <!-- 9. o3-mini -->
+            <div class="model-card" data-model="o3-mini" data-categories="all openai reasoning speed" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI o3-mini</div>
+                    <div class="model-provider-tag">OPENAI &bull; FAST LOGIC</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Fast and clever OpenAI reasoning model. Good at finding clues in suspicious alerts and checking if reported software bugs affect you.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Smart Reasoning</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Fast Results</span>
+              </div>
+            </div>
+            <!-- 10. grok-3 -->
+            <div class="model-card" data-model="grok-3" data-categories="all grok reasoning trending frontier" data-provider-name="xAI Grok Console" data-key-url="https://console.x.ai/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-grok">🚀</span>
+                  <div>
+                    <div class="model-name">xAI Grok 3</div>
+                    <div class="model-provider-tag">xAI &bull; 2026 SCAM DETECTOR</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                xAI's newest flagship model. Great at spotting real-time online scams, copycat websites pretending to be trusted brands, and new internet tricks.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Live Threat Intel</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Scam Hunter</span>
+              </div>
+            </div>
+            <!-- 11. nvidia/llama-3.1-nemotron-70b -->
+            <div class="model-card" data-model="nvidia/llama-3.1-nemotron-70b" data-categories="all free nvidia reasoning trending frontier" data-provider-name="NVIDIA NIM Developer" data-key-url="https://build.nvidia.com/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">💚</span>
+                  <div>
+                    <div class="model-name">NVIDIA Nemotron 70B</div>
+                    <div class="model-provider-tag">NVIDIA &bull; 1,000 FREE CREDITS</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                NVIDIA's flagship security model with 1,000 free developer credits. Built for deep threat analysis and automatically creating clear firewall rules.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Free Developer Credits</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Security Rules</span>
+              </div>
+            </div>
+            <!-- 12. sonar-pro -->
+            <div class="model-card" data-model="sonar-pro" data-categories="all perplexity reasoning speed trending" data-provider-name="Perplexity AI Console" data-key-url="https://www.perplexity.ai/settings/api">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🌐</span>
+                  <div>
+                    <div class="model-name">Perplexity Sonar Pro</div>
+                    <div class="model-provider-tag">PERPLEXITY &bull; LIVE WEB SEARCH</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Searches the live web in real time to verify new domain registrations, recent breach reports, and active security advisories.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🌐</span> Live Internet Search</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Zero-Day Verification</span>
+              </div>
+            </div>
+            <!-- 13. gemini-2.5-pro -->
+            <div class="model-card" data-model="gemini-3.0-pro" data-categories="all gemini reasoning trending" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.0 Pro</div>
+                    <div class="model-provider-tag">GOOGLE &bull; PRO REASONING</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's premier deep reasoning flagship. Superb at analyzing complicated cyber incidents and explaining threats clearly.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Advanced Thinking</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Deep Log Analysis</span>
+              </div>
+            </div>
+            <!-- 14. claude-3-5-haiku -->
+            <div class="model-card" data-model="claude-3-5-haiku" data-categories="all claude speed trending" data-provider-name="Anthropic Claude" data-key-url="https://console.anthropic.com/settings/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🟣</span>
+                  <div>
+                    <div class="model-name">Claude 3.5 Haiku</div>
+                    <div class="model-provider-tag">ANTHROPIC &bull; INSTANT TRIAGE</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Instant scanner designed to check emails, headers, and suspicious links in the blink of an eye at low cost.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Instant Scanner</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Email & Link Guard</span>
+              </div>
+            </div>
+            <!-- 15. gpt-4o-mini -->
+            <div class="model-card" data-model="gpt-4o-mini" data-categories="all openai speed trending" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI GPT-4o Mini</div>
+                    <div class="model-provider-tag">OPENAI &bull; EVERYDAY ASSISTANT</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Affordable, lightning-fast OpenAI model for everyday checks, quick safety reviews, and simple protection recommendations.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Everyday Assistant</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Quick Checks</span>
+              </div>
+            </div>
+            <!-- 16. groq/llama-3.1-8b-instant -->
+            <div class="model-card" data-model="groq/llama-3.1-8b-instant" data-categories="all free speed trending" data-provider-name="Groq Free Cloud" data-key-url="https://console.groq.com/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">⚡</span>
+                  <div>
+                    <div class="model-name">Groq Llama 3.1 8B</div>
+                    <div class="model-provider-tag">GROQ &bull; LIGHTNING FREE TIER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                The fastest free model available anywhere. Checks domain safety and IP reputation in under 100 milliseconds.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Under 100ms</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> 100% Free Inference</span>
+              </div>
+            </div>
+            <!-- 17. grok-2 -->
+            <div class="model-card" data-model="grok-2" data-categories="all grok speed trending" data-provider-name="xAI Grok Console" data-key-url="https://console.x.ai/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-grok">🚀</span>
+                  <div>
+                    <div class="model-name">xAI Grok 2</div>
+                    <div class="model-provider-tag">xAI &bull; PHISHING CATCHER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Specializes in catching phishing websites designed to steal passwords, credit cards, and personal user information.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Website Checker</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Fake Domain Alert</span>
+              </div>
+            </div>
+            <!-- 18. deepseek-v3 -->
+            <div class="model-card" data-model="deepseek-v3" data-categories="all deepseek speed trending" data-provider-name="DeepSeek Platform" data-key-url="https://platform.deepseek.com/api_keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-deepseek">🐋</span>
+                  <div>
+                    <div class="model-name">DeepSeek V3</div>
+                    <div class="model-provider-tag">DEEPSEEK &bull; HIGH-SPEED SCANNER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Super-fast model built to scan through long lists of suspicious websites, IP addresses, and files with virtually zero computing cost.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> High-Speed Triage</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Large Log Scans</span>
+              </div>
+            </div>
+            <!-- 19. gemini-3.1-pro-preview -->
+            <div class="model-card" data-model="gemini-3.1-pro-preview" data-categories="all gemini reasoning frontier" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.1 Pro Preview</div>
+                    <div class="model-provider-tag">GOOGLE &bull; ADVANCED DEFENSE</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's advanced preview model for understanding brand-new security bugs and how to protect against them.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Advanced Logic</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Threat Containment</span>
+              </div>
+            </div>
+            <!-- 20. claude-3-opus -->
+            <div class="model-card" data-model="claude-3-5-opus" data-categories="all claude reasoning" data-provider-name="Anthropic Claude" data-key-url="https://console.anthropic.com/settings/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🟣</span>
+                  <div>
+                    <div class="model-name">Claude 3.5 Opus</div>
+                    <div class="model-provider-tag">ANTHROPIC &bull; DETAILED REPORTS</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Anthropic's premier analytical model. Writes clear, thorough incident reports suitable for executives and team leaders.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Comprehensive Review</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Detailed Reports</span>
+              </div>
+            </div>
+            <!-- 21. o1 -->
+            <div class="model-card" data-model="o1" data-categories="all openai reasoning frontier" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI o1</div>
+                    <div class="model-provider-tag">OPENAI &bull; CAREFUL REASONING</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Takes extra time to carefully review evidence before giving you a confident verdict on suspicious or confusing files and links.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Careful Reasoning</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Verified Decisions</span>
+              </div>
+            </div>
+            <!-- 22. mistral-large-2 -->
+            <div class="model-card" data-model="mistral-large-latest" data-categories="all mistral reasoning" data-provider-name="Mistral AI Console" data-key-url="https://console.mistral.ai/api-keys/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-mistral">🧡</span>
+                  <div>
+                    <div class="model-name">Mistral Large Latest</div>
+                    <div class="model-provider-tag">MISTRAL &bull; MULTILINGUAL CODE</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Top European model. Sharp at reading code, catching hidden backdoors, and explaining threats in multiple languages.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Multilingual Support</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Safe Coding</span>
+              </div>
+            </div>
+            <!-- 23. command-r-plus -->
+            <div class="model-card" data-model="command-r-plus-latest" data-categories="all cohere reasoning frontier" data-provider-name="Cohere Dashboard" data-key-url="https://dashboard.cohere.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🌿</span>
+                  <div>
+                    <div class="model-name">Cohere Command R+ Latest</div>
+                    <div class="model-provider-tag">COHERE &bull; RETRIEVAL EXPERT</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Built for grounded enterprise threat verification and cross-referencing indicators against live threat intelligence databases.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🌿</span> Fact-Checked Citations</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Database Lookup</span>
+              </div>
+            </div>
+            <!-- 24. meta/llama-3.3-70b -->
+            <div class="model-card" data-model="meta/llama-3.3-70b" data-categories="all meta reasoning speed trending" data-provider-name="Meta / OpenRouter Console" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-meta">🦙</span>
+                  <div>
+                    <div class="model-name">Meta Llama 3.3 70B</div>
+                    <div class="model-provider-tag">META &bull; TRUSTED OPEN MODEL</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Meta's top open-source model. Reliably reads security logs, spots dangerous links, and writes easy-to-use firewall rules.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🦙</span> Meta Open Model</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Firewall Rules</span>
+              </div>
+            </div>
+            <!-- 25. gemini-2.5-flash -->
+            <div class="model-card" data-model="gemini-3.0-flash" data-categories="all free gemini speed trending frontier" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.0 Flash</div>
+                    <div class="model-provider-tag">GOOGLE &bull; 100% FREE API KEY</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's ultra-fast modern free workhorse. Instantly checks links, IP addresses, and emails with zero cost using your personal Google account.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Instant Free Triage</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Google Free Tier</span>
+              </div>
+            </div>
+            <!-- 26. o1-mini -->
+            <div class="model-card" data-model="o1-mini" data-categories="all openai reasoning speed" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI o1-mini</div>
+                    <div class="model-provider-tag">OPENAI &bull; CODE CHECKER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Compact reasoning engine designed to quickly check strange commands, scripts, and suspicious files at moderate cost.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Script & Macro Logic</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Fast Diagnosis</span>
+              </div>
+            </div>
+            <!-- 27. deepseek-coder-v2 -->
+            <div class="model-card" data-model="deepseek-coder-v3" data-categories="all deepseek reasoning" data-provider-name="DeepSeek Platform" data-key-url="https://platform.deepseek.com/api_keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-deepseek">🐋</span>
+                  <div>
+                    <div class="model-name">DeepSeek Coder V3</div>
+                    <div class="model-provider-tag">DEEPSEEK &bull; SCRIPT INSPECTOR</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Next-gen code analysis model for inspecting suspicious scripts, deobfuscating payloads, and finding hidden backdoors.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">💻</span> Script Inspector</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Hidden Trap Finder</span>
+              </div>
+            </div>
+            <!-- 28. qwen-2.5-coder-32b -->
+            <div class="model-card" data-model="qwen-2.5-coder-latest" data-categories="all qwen reasoning speed" data-provider-name="Alibaba DashScope / OpenRouter" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-qwen">🌌</span>
+                  <div>
+                    <div class="model-name">Qwen 2.5 Coder Latest</div>
+                    <div class="model-provider-tag">ALIBABA &bull; CODE AUDITOR</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Specially trained on code syntax to pinpoint dangerous macros, malicious PowerShell snippets, and web shell payloads.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">💻</span> Code Auditing</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Exploit Detection</span>
+              </div>
+            </div>
+            <!-- 29. mistral-codestral -->
+            <div class="model-card" data-model="codestral-latest" data-categories="all mistral reasoning speed" data-provider-name="Mistral AI Console" data-key-url="https://console.mistral.ai/api-keys/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-mistral">🧡</span>
+                  <div>
+                    <div class="model-name">Mistral Codestral Latest</div>
+                    <div class="model-provider-tag">MISTRAL &bull; SCRIPT DECODER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Dedicated coding model built to dissect tricky, obfuscated software vulnerabilities and suspicious code repos.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">💻</span> Script Decoding</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Backdoor Finder</span>
+              </div>
+            </div>
+            <!-- 30. command-r -->
+            <div class="model-card" data-model="command-r-latest" data-categories="all cohere speed" data-provider-name="Cohere Dashboard" data-key-url="https://dashboard.cohere.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🌿</span>
+                  <div>
+                    <div class="model-name">Cohere Command R Latest</div>
+                    <div class="model-provider-tag">COHERE &bull; FAST RETRIEVAL</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Lightweight retrieval engine for rapid document scanning, security alert triage, and verifying malicious signatures.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🌿</span> Fast Retrieval</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Signature Triage</span>
+              </div>
+            </div>
+            <!-- 31. gemini-1.5-flash -->
+            <div class="model-card" data-model="gemini-2.0-flash" data-categories="all free gemini speed trending" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 2.0 Flash</div>
+                    <div class="model-provider-tag">GOOGLE &bull; 100% FREE TIER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Google's fast multimodal model. Perfect for students and everyday users who need fast, zero-cost link and email verification.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Zero Cost Triage</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Google Free Tier</span>
+              </div>
+            </div>
+            <!-- 32. claude-3-sonnet -->
+            <div class="model-card" data-model="claude-3-5-sonnet-v2" data-categories="all claude speed" data-provider-name="Anthropic Claude" data-key-url="https://console.anthropic.com/settings/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-claude">🟣</span>
+                  <div>
+                    <div class="model-name">Claude 3.5 Sonnet V2</div>
+                    <div class="model-provider-tag">ANTHROPIC &bull; ADVANCED DEFENDER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Anthropic's upgraded Sonnet engine established for forensic accuracy and dependable threat attribution.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Balanced Speed</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Careful Inspection</span>
+              </div>
+            </div>
+            <!-- 33. gpt-4.5-preview -->
+            <div class="model-card" data-model="gpt-4.5-preview" data-categories="all openai reasoning frontier" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI GPT-4.5</div>
+                    <div class="model-provider-tag">OPENAI &bull; NEXT-GEN FRONTIER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                OpenAI's massive frontier model. Great at turning complicated technical investigations into clear, plain-language summaries.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Frontier Accuracy</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Incident Briefs</span>
+              </div>
+            </div>
+            <!-- 34. groq/mixtral-8x7b-32768 -->
+            <div class="model-card" data-model="groq/deepseek-r1-distill-llama-70b" data-categories="all free groq reasoning speed" data-provider-name="Groq Free Cloud" data-key-url="https://console.groq.com/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">⚡</span>
+                  <div>
+                    <div class="model-name">Groq DeepSeek R1 70B</div>
+                    <div class="model-provider-tag">GROQ &bull; 100% FREE REASONING</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                DeepSeek R1 reasoning distilled on Llama 70B running at lightning LPU speeds on Groq's free cloud platform.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Free Fast MoE</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Report Summarizer</span>
+              </div>
+            </div>
+            <!-- 35. grok-beta -->
+            <div class="model-card" data-model="grok-3-mini" data-categories="all grok speed" data-provider-name="xAI Grok Console" data-key-url="https://console.x.ai/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-grok">🚀</span>
+                  <div>
+                    <div class="model-name">xAI Grok 3 Mini</div>
+                    <div class="model-provider-tag">xAI &bull; REAL-TIME INTEL</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Fast real-time model from xAI for instant gut-checks on live online scams and deceptive web links.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Live Telemetry</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Quick Checkups</span>
+              </div>
+            </div>
+            <!-- 36. meta/llama-3.1-8b -->
+            <div class="model-card" data-model="meta/llama-3.1-8b" data-categories="all meta speed trending" data-provider-name="Meta / OpenRouter Console" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-meta">🦙</span>
+                  <div>
+                    <div class="model-name">Meta Llama 3.1 8B</div>
+                    <div class="model-provider-tag">META &bull; NIMBLE GUARD</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Lightweight, nimble open model perfect for high-speed edge triage and instant IP reputation filtering.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🦙</span> Ultra Fast</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Edge Scanning</span>
+              </div>
+            </div>
+            <!-- 37. gpt-4-turbo -->
+            <div class="model-card" data-model="gpt-4o-latest" data-categories="all openai reasoning" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI GPT-4o Latest</div>
+                    <div class="model-provider-tag">OPENAI &bull; CONTINUOUS FLAGSHIP</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                OpenAI's continuously updated flagship omni model for rigorous, comprehensive cyber intelligence.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Benchmark Standard</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Threat Detection</span>
+              </div>
+            </div>
+            <!-- 38. nvidia/mixtral-8x22b -->
+            <div class="model-card" data-model="nvidia/llama-3.3-70b-instruct" data-categories="all nvidia reasoning" data-provider-name="NVIDIA NIM Developer" data-key-url="https://build.nvidia.com/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">💚</span>
+                  <div>
+                    <div class="model-name">NVIDIA Llama 3.3 70B</div>
+                    <div class="model-provider-tag">NVIDIA &bull; HIGH-SPEED NIM</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Meta's 70B flagship accelerated on NVIDIA high-speed NIM architecture for rapid technical log audits.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Accelerated Speed</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Complex Reports</span>
+              </div>
+            </div>
+            <!-- 39. qwen-2.5-72b -->
+            <div class="model-card" data-model="qwen-2.5-72b" data-categories="all qwen reasoning speed" data-provider-name="Alibaba DashScope / OpenRouter" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-qwen">🌌</span>
+                  <div>
+                    <div class="model-name">Qwen 2.5 72B</div>
+                    <div class="model-provider-tag">ALIBABA &bull; SCRIPT ANALYZER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Fast and capable open model. Great at unraveling weird, scrambled scripts and suspicious file downloads.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Powerful Logic</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Deep Log Reading</span>
+              </div>
+            </div>
+            <!-- 40. mistral-pixtral-12b -->
+            <div class="model-card" data-model="mistral-pixtral-12b" data-categories="all mistral reasoning speed" data-provider-name="Mistral AI Console" data-key-url="https://console.mistral.ai/api-keys/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-mistral">🧡</span>
+                  <div>
+                    <div class="model-name">Mistral Pixtral 12B</div>
+                    <div class="model-provider-tag">MISTRAL &bull; SCREENSHOT INSPECTOR</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Visual analysis specialist adept at spotting fake login screens, deceptive brand logos, and copycat websites.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">👁️</span> Visual Phishing</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Screenshot Check</span>
+              </div>
+            </div>
+            <!-- 41. deepseek-v2.5 -->
+            <div class="model-card" data-model="deepseek-r1-distill-qwen-32b" data-categories="all deepseek speed" data-provider-name="DeepSeek Platform" data-key-url="https://platform.deepseek.com/api_keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-deepseek">🐋</span>
+                  <div>
+                    <div class="model-name">DeepSeek R1 Qwen 32B</div>
+                    <div class="model-provider-tag">DEEPSEEK &bull; HIGH-PRECISION REASONING</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                High-accuracy open reasoning model distilled from DeepSeek R1, optimized for cyber threat triage and script analysis.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Reliable Triage</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> General Analysis</span>
+              </div>
+            </div>
+            <!-- 42. meta/llama-3.1-405b -->
+            <div class="model-card" data-model="meta/llama-3.1-405b" data-categories="all meta reasoning frontier trending" data-provider-name="Meta / OpenRouter Console" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-meta">🦙</span>
+                  <div>
+                    <div class="model-name">Meta Llama 3.1 405B</div>
+                    <div class="model-provider-tag">META &bull; TITAN OPEN MODEL</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Meta's largest open-weights titan model. Incredible at deep correlation across multiple complex security events.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🦙</span> Massive Intelligence</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Deep Correlation</span>
+              </div>
+            </div>
+            <!-- 43. gemini-1.5-pro -->
+            <div class="model-card" data-model="gemini-3.0-pro-preview" data-categories="all gemini reasoning" data-provider-name="Google AI Studio" data-key-url="https://aistudio.google.com/app/apikey">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🔷</span>
+                  <div>
+                    <div class="model-name">Gemini 3.0 Pro Preview</div>
+                    <div class="model-provider-tag">GOOGLE &bull; NEXT-GEN FRONTIER</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Next-generation Google frontier intelligence with massive context understanding for large-scale security incident correlation.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧠</span> Deep History</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Huge Log Audits</span>
+              </div>
+            </div>
+            <!-- 44. gpt-3.5-turbo -->
+            <div class="model-card" data-model="o3" data-categories="all openai speed" data-provider-name="OpenAI Platform" data-key-url="https://platform.openai.com/api-keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-openai">⚡</span>
+                  <div>
+                    <div class="model-name">OpenAI o3</div>
+                    <div class="model-provider-tag">OPENAI &bull; NEXT-GEN REASONING</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                OpenAI's state-of-the-art cognitive reasoning model for zero-day threat correlation and deep attack chain analysis.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Classic Baseline</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Fast Overview</span>
+              </div>
+            </div>
+            <!-- 45. groq/gemma2-9b-it -->
+            <div class="model-card" data-model="groq/llama-3.2-11b-vision-preview" data-categories="all free groq speed" data-provider-name="Groq Free Cloud" data-key-url="https://console.groq.com/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-nvidia">⚡</span>
+                  <div>
+                    <div class="model-name">Groq Llama 3.2 11B</div>
+                    <div class="model-provider-tag">GROQ &bull; FREE FAST VISION</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Llama 3.2 multimodal model hosted on Groq's high-speed cloud. Fast, free, and accurate for daily URL and text checks.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">⚡</span> Fast & Free</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Google Open Weights</span>
+              </div>
+            </div>
+            <!-- 46. mistral-nemo -->
+            <div class="model-card" data-model="mistral-small-latest" data-categories="all free mistral reasoning speed" data-provider-name="Mistral AI Console" data-key-url="https://console.mistral.ai/api-keys/">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-mistral">🧡</span>
+                  <div>
+                    <div class="model-name">Mistral Small Latest</div>
+                    <div class="model-provider-tag">MISTRAL &bull; MODERN TRIAGE</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Enterprise-grade lightweight European model for rapid security triage, safe URL auditing, and log analysis.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🧡</span> NVIDIA Collab</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Lightweight Audit</span>
+              </div>
+            </div>
+            <!-- 47. sonar -->
+            <div class="model-card" data-model="sonar" data-categories="all perplexity speed trending" data-provider-name="Perplexity AI Console" data-key-url="https://www.perplexity.ai/settings/api">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🌐</span>
+                  <div>
+                    <div class="model-name">Perplexity Sonar</div>
+                    <div class="model-provider-tag">PERPLEXITY &bull; FAST WEB SEARCH</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Lightning-fast internet research model that quickly verifies unfamiliar URLs and IP reputations across public security forums.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🌐</span> Rapid Web Check</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Public Forum Search</span>
+              </div>
+            </div>
+            <!-- 48. openrouter/auto -->
+            <div class="model-card" data-model="openrouter/auto" data-categories="all free openrouter reasoning speed trending" data-provider-name="OpenRouter Console" data-key-url="https://openrouter.ai/keys">
+              <div class="model-card-top">
+                <div class="model-brand-info">
+                  <span class="model-brand-avatar avatar-gemini">🌐</span>
+                  <div>
+                    <div class="model-name">OpenRouter Auto</div>
+                    <div class="model-provider-tag">OPENROUTER &bull; BEST FREE ROUTE</div>
+                  </div>
+                </div>
+                <div class="model-radio-indicator" title="Select Model">
+                  <span class="radio-circle"></span>
+                </div>
+              </div>
+              <p class="model-desc">
+                Universal fallback router that automatically picks the fastest, lowest-cost available model for your scan.
+              </p>
+              <div class="model-meta">
+                <span class="meta-pill"><span class="meta-icon">🌐</span> Auto Best Route</span>
+                <span class="meta-pill"><span class="meta-icon">🛡️</span> Zero Downtime</span>
+              </div>
+            </div>
+          </div>
+          <!-- Cyber Pagination Toolbar (6 Cards Per Page with Prev / Next) -->
+          <div class="model-pagination-toolbar" id="modelPaginationToolbar">
+            <!-- Button to navigate to previous model catalog page -->
+            <button type="button" class="btn-page-nav" id="btnPrevModelPage" disabled title="Previous Models">
+              &larr; Previous
+            </button>
+            <div class="page-pills-container" id="modelPagePills">
+              <!-- Dynamically Populated Page Pills E.g. [1] [2] [3] -->
+            </div>
+            <!-- Button to navigate to next model catalog page -->
+            <button type="button" class="btn-page-nav" id="btnNextModelPage" title="Next Models">
+              Next &rarr;
+            </button>
+          </div>
+          <!-- Custom / Future-proof Model Id Box -->
+          <div class="custom-model-card-box">
+            <div class="custom-model-box-header">
+              <span class="purple-neon custom-model-header-title">✨ Want to use a different model?</span>
+              <span class="badge-mini badge-reasoning">Universal Multi-Provider</span>
+            </div>
+            <p class="custom-model-hint">
+              Enter any supported model ID from Claude (<code>claude-3-7-sonnet</code>), OpenAI (<code>gpt-4.5</code>), DeepSeek, xAI, NVIDIA, or Gemini.
+            </p>
+            <div class="custom-model-input-group">
+              <input type="text" id="customModelInput" class="cyber-input custom-model-input" placeholder="e.g. claude-3-7-sonnet, gpt-4.5, deepseek-r1..." autocomplete="off">
+              <!-- Button to activate custom model ID -->
+              <button type="button" id="btnApplyCustomModel" class="btn-micro-cyber">
+                Activate Model
+              </button>
+            </div>
+            <div id="customModelActiveAlert" class="custom-model-active-pill">
+              <span>Active custom model: <strong id="customModelActiveName"></strong></span>
+              <!-- Button to reset custom model and restore catalog -->
+              <button type="button" id="btnRemoveCustomModel" class="btn-link-action" title="Switch back to predefined model">&times; Reset</button>
+            </div>
+          </div>
+        </div>
+        <!-- Section 2: Bring Your Own Key  -->
+        <div class="byok-keys-section" id="byokKeysSection">
+          <div class="section-subheading">
+            <div class="flex-row-gap-8">
+              <span class="cyan-neon byok-section-title">🔑 Bring Your Own Key</span>
+              <span class="badge-mini badge-green-neon">Saved in your browser</span>
+            </div>
+            <span class="text-dim byok-subtitle-note">Leave blank to use built-in demo keys</span>
+          </div>
+          <div class="byok-intro-banner">
+            <div class="byok-banner-icon">🔒</div>
+            <div class="byok-banner-text">
+              <div class="byok-banner-title">Your keys stay on your machine</div>
+              <div class="byok-banner-desc">
+                Keys entered below are stored only in your browser's private localStorage. They are never saved on our servers or shared with anyone else.
+              </div>
+            </div>
+          </div>
+          <div class="byok-keys-grid">
+            <!-- Unified Ai Model API Key (works for Any Model: Gemini, Claude, Openai, Deepseek, Grok, Nvidia) -->
+            <div class="key-field-card">
+              <div class="key-field-header">
+                <div>
+                  <label for="inputProviderKey" class="key-label" id="providerKeyLabel">
+                    <span class="key-provider-icon" id="providerKeyIcon">⚡</span>
+                    <strong id="providerKeyTitle">Anthropic Claude API Key</strong>
+                  </label>
+                  <div class="key-subtext" id="providerKeySubtitle">For Claude 3.7 Sonnet (Click 'Get key' if you need one)</div>
+                </div>
+                <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer" class="link-external btn-get-model-key" id="linkGetModelApiKey" title="Click to get an API key for this model in a new tab">
+                  <span id="linkGetModelApiKeyText">Get your Anthropic Claude API Key</span> &rarr;
+                </a>
+              </div>
+              <div class="key-input-wrapper">
+                <input type="password" id="inputProviderKey" class="cyber-input" placeholder="Paste your API key (e.g. AIzaSy..., sk-..., nvapi-...)" autocomplete="off">
+                <!-- Button to toggle provider API key visibility -->
+                <button type="button" class="btn-input-action" id="btnToggleProviderKey" title="Show or hide key">👁️</button>
+                <!-- Button to paste provider API key from clipboard -->
+                <button type="button" class="btn-input-action" id="btnPasteProviderKey" title="Paste from clipboard">📋 Paste</button>
+              </div>
+            </div>
+            <!-- Virustotal Key -->
+            <div class="key-field-card">
+              <div class="key-field-header">
+                <div>
+                  <label for="inputVtKey" class="key-label">
+                    <span class="key-provider-icon">🛡️</span>
+                    <strong>VirusTotal Key (v3)</strong>
+                  </label>
+                  <div class="key-subtext">Live reputation scores across 70+ security vendors (free 500 req/day)</div>
+                </div>
+                <a href="https://www.virustotal.com/gui/my-apikey" target="_blank" rel="noopener" class="link-external">Get a free VirusTotal key &rarr;</a>
+              </div>
+              <div class="key-input-wrapper">
+                <input type="password" id="inputVtKey" class="cyber-input" placeholder="Paste your 64-char VirusTotal key" autocomplete="off">
+                <!-- Button to toggle VirusTotal API key visibility -->
+                <button type="button" class="btn-input-action" id="btnToggleVtKey" title="Show or hide key">👁️</button>
+                <!-- Button to paste VirusTotal API key from clipboard -->
+                <button type="button" class="btn-input-action" id="btnPasteVtKey" title="Paste from clipboard">📋 Paste</button>
+              </div>
+            </div>
+            <!-- Alienvault OTX Key -->
+            <div class="key-field-card">
+              <div class="key-field-header">
+                <div>
+                  <label for="inputOtxKey" class="key-label">
+                    <span class="key-provider-icon">🛰️</span>
+                    <strong>AlienVault OTX Key</strong>
+                  </label>
+                  <div class="key-subtext">Community threat pulses, malware tags, and active campaigns</div>
+                </div>
+                <a href="https://otx.alienvault.com/api" target="_blank" rel="noopener" class="link-external">Get a free OTX key &rarr;</a>
+              </div>
+              <div class="key-input-wrapper">
+                <input type="password" id="inputOtxKey" class="cyber-input" placeholder="Paste your AlienVault OTX key" autocomplete="off">
+                <!-- Button to toggle AlienVault OTX API key visibility -->
+                <button type="button" class="btn-input-action" id="btnToggleOtxKey" title="Show or hide key">👁️</button>
+                <!-- Button to paste AlienVault OTX API key from clipboard -->
+                <button type="button" class="btn-input-action" id="btnPasteOtxKey" title="Paste from clipboard">📋 Paste</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Live Status Feedback Bar Inside Modal -->
+        <div class="modal-status-feedback" id="modalStatusFeedback">
+          <span class="status-dot dot-yellow" id="modalStatusDot"></span>
+          <span id="modalStatusText">Ready. Pick a model above or add keys, then click Save & Apply.</span>
+        </div>
+      </div>
+      <div class="modal-actions-footer">
+        <div class="actions-left">
+          <!-- Button to reset API keys to default server values -->
+          <button id="btnResetApiDefaults" class="btn-sample">
+            🔄 Reset to Defaults
+          </button>
+          <!-- Button to test API credentials connectivity -->
+          <button id="btnTestApiConnectivity" class="btn-sample">
+            🔍 Test Connection
+          </button>
+        </div>
+        <div class="actions-right">
+          <!-- Button to save and apply API settings -->
+          <button id="btnSaveApiSettings" class="btn-primary">
+            💾 Save & Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Keyboard Shortcuts Modal Overlay (shortcut: ?) -->
+  <div class="cyber-modal-overlay" id="shortcutModal">
+    <div class="cyber-modal-card">
+      <div class="modal-header">
+        <h3 class="cyan-neon">⚡ Keyboard Shortcuts</h3>
+        <!-- Button to close keyboard shortcuts modal -->
+        <button id="btnCloseModal" class="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-row">
+          <span>Scan Active Indicators</span>
+          <kbd>Ctrl + Enter</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Focus Search Filter</span>
+          <kbd>/</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Toggle Audio SFX</span>
+          <kbd>M</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Toggle Defang / Refang</span>
+          <kbd>Alt + D</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Close Drawers & Modals</span>
+          <kbd>Esc</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Toggle Shortcuts Guide</span>
+          <kbd>?</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="app-container footer-content">
+      <div class="footer-brand-line">
+        <strong>Threat <span class="brand-z-highlight">Z</span> Lens</strong> &mdash; Project by : ZIdaan
+      </div>
+    </div>
+  </footer>
+  <!-- Application Logic (relative Path So It Works in Both Root and Subdir/live Server Environments) -->
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- End of Program (Program by Zidaan) -->
